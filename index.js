@@ -1,37 +1,44 @@
+const niveis = [
+  { min: 0, max: 9, nivel: 'Ferro' },
+  { min: 10, max: 20, nivel: 'Bronze' },
+  { min: 21, max: 50, nivel: 'Prata' },
+  { min: 51, max: 80, nivel: 'Ouro' },
+  { min: 81, max: 90, nivel: 'Diamante' }, 
+  { min: 91, max: 100, nivel: 'Lendario' },
+  { min: 101, max: Infinity, nivel: 'Imortal' }
+];
+
+function calcularSaldo(vitorias, derrotas) {
+  // Calcula o saldo de vitórias
+  return vitorias - derrotas;
+}
+
 function calcularNivel(vitorias, derrotas) {
-  // Validação básica: verifica se as entradas são números positivos
+  // Validação: verifica se as entradas são números inteiros positivos
+  if (!Number.isInteger(vitorias) || !Number.isInteger(derrotas)) {
+    return "Valores inválidos. Vitórias e derrotas devem ser números inteiros.";
+  }
   if (vitorias < 0 || derrotas < 0) {
-      return "Valores inválidos. Vitórias e derrotas devem ser números positivos.";
+    return "Valores inválidos. Vitórias e derrotas não podem ser negativos.";
   }
 
-  const saldoVitorias = vitorias - derrotas;
+  const saldo = calcularSaldo(vitorias, derrotas);
 
-  let nivel;
-  switch (true) {
-      case saldoVitorias < 10:
-          nivel = "Ferro";
-          break;
-      case saldoVitorias >= 11 && saldoVitorias <= 20:
-          nivel = "Bronze";
-          break;
-      case saldoVitorias >= 21 && saldoVitorias <= 50:  
-          nivel = "Prata";
-          break;  
-      case saldoVitorias >= 51 && saldoVitorias <= 80:
-          nivel = "Ouro";
-          break;
-      case saldoVitorias >= 81 && saldoVitorias <= 90:
-          nivel = "Diamante";
-          break;
-      case saldoVitorias >= 91 && saldoVitorias <= 100:
-          nivel = "Lendario";
-      default:
-          nivel = "Imortal";
+  // Encontra o nível correspondente
+  for (const nivelObj of niveis) {
+    if (saldo >= nivelObj.min && saldo <= nivelObj.max) {
+      return nivelObj.nivel;
+    }
   }
 
-  return nivel;
+  // Se nenhum nível for encontrado, retorna um valor padrão (por exemplo, "Não classificado")
+  return "Não classificado";
 }
 
 // Exemplo de uso:
-const nivelDoHeroi = calcularNivel(30, 20);
-console.log(`O herói tem de saldo de 20 está no nível de ${nivelDoHeroi}`);
+const vitorias = 90;
+const derrotas = 10;
+const nivelDoHeroi = calcularNivel(vitorias, derrotas);
+const saldo = calcularSaldo(vitorias, derrotas);
+
+console.log(`O herói com ${vitorias} vitórias e ${derrotas} derrotas, tem um saldo de ${saldo} e está no nível ${nivelDoHeroi}`);
