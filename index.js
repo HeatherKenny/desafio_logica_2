@@ -1,31 +1,37 @@
 function calcularNivel(vitorias, derrotas) {
-    // Calcula o saldo de vitórias
-    const saldoVitorias = vitorias - derrotas;
-  
-    // Determina o nível com base no saldo   
-  
-    let nivel;
-    if (saldoVitorias < 10) {
-      nivel = "Ferro";
-    } else if (saldoVitorias >= 11 && saldoVitorias <= 20) {
-      nivel = "Bronze";
-    } else if (saldoVitorias >= 21 && saldoVitorias <= 50) {
-      nivel = "Prata";
-    } else if (saldoVitorias >= 51 && saldoVitorias <= 80) {
-      nivel = "Ouro";
-    } else if (saldoVitorias >= 81 && saldoVitorias <= 90) {
-      nivel = "Diamante";
-    } else if (saldoVitorias >= 91 && saldoVitorias <= 100) {
-      nivel = "Lendário";
-    } else {
-      nivel
-   = "Imortal";
-    }
-  
-    // Exibe a mensagem   
-   final
-    console.log(`O herói tem de saldo de ${saldoVitorias} está no nível de ${nivel}`);
+  // Validação básica: verifica se as entradas são números positivos
+  if (vitorias < 0 || derrotas < 0) {
+      return "Valores inválidos. Vitórias e derrotas devem ser números positivos.";
   }
-  
-  // Exemplo de uso:
-  calcularNivel(30, 10); // Saída: O herói tem de saldo de 20 está no nível de Prata
+
+  const saldoVitorias = vitorias - derrotas;
+
+  let nivel;
+  switch (true) {
+      case saldoVitorias < 10:
+          nivel = "Ferro";
+          break;
+      case saldoVitorias >= 11 && saldoVitorias <= 20:
+          nivel = "Bronze";
+          break;
+      case saldoVitorias >= 21 && saldoVitorias <= 50:  
+          nivel = "Prata";
+          break;  
+      case saldoVitorias >= 51 && saldoVitorias <= 80:
+          nivel = "Ouro";
+          break;
+      case saldoVitorias >= 81 && saldoVitorias <= 90:
+          nivel = "Diamante";
+          break;
+      case saldoVitorias >= 91 && saldoVitorias <= 100:
+          nivel = "Lendario";
+      default:
+          nivel = "Imortal";
+  }
+
+  return nivel;
+}
+
+// Exemplo de uso:
+const nivelDoHeroi = calcularNivel(30, 20);
+console.log(`O herói tem de saldo de 20 está no nível de ${nivelDoHeroi}`);
